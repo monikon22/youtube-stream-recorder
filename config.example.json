@@ -1,0 +1,30 @@
+{
+  "channels": [
+    {
+      "name": "Channel Name",
+      "url": "https://www.youtube.com/@channel",
+      "platform": "youtube"
+    }
+  ],
+  "settings": {
+    "check_interval": 60,
+    "segment_time": "00:30:00",
+    "segment_size": "2G",
+    "watermark_path": "/app/watermark.png",
+    "watermark_position": "bottom-right",
+    "output_path": "/app/recordings"
+  },
+  "telegram": {
+    "bot_token": "YOUR_BOT_TOKEN",
+    "channel_id": "@public_channel",
+    "channel_id_original": "@private_channel",
+    "api_url": "http://telegram-api:8081",
+    "message_template": "<b>{title}</b>\nЧасть {sequence_number}",
+    "message_template_original": "<b>{title}</b> (Original)\nЧасть {sequence_number}"
+  },
+  "mongodb": {
+    "uri": "mongodb://mongo:27017/",
+    "db_name": "stream_recorder",
+    "collection": "streams"
+  }
+}

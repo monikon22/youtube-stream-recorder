@@ -1,0 +1,8 @@
+.venv
+.vscode
+
+recordings
+
+watermark.png
+docker-compose.yml
+config.json

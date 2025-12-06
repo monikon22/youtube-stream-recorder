@@ -1,0 +1,67 @@
+version: "3.8"
+
+services:
+  recorder:
+    build: ./recorder
+    container_name: stream_recorder
+    restart: unless-stopped
+    volumes:
+      - ./recordings:/app/recordings
+      - ./config.json:/app/config.json
+    depends_on:
+      - mongo
+    environment:
+      - PYTHONUNBUFFERED=1
+    stdin_open: true
+    tty: true
+
+  postprocessor:
+    build: ./postprocessor
+    container_name: stream_postprocessor
+    restart: unless-stopped
+    volumes:
+      - ./recordings:/app/recordings
+      - ./config.json:/app/config.json
+      - ./watermark.png:/app/watermark.png
+    depends_on:
+      - mongo
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  publisher:
+    build: ./publisher
+    container_name: stream_publisher
+    restart: unless-stopped
+    volumes:
+      - ./recordings:/app/recordings
+      - ./config.json:/app/config.json
+    depends_on:
+      - mongo
+      - telegram-api
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  telegram-api:
+    image: ghcr.io/lukaszraczylo/tdlib-telegram-bot-api-docker/telegram-api-server:latest
+    container_name: telegram_api_server
+    restart: unless-stopped
+    environment:
+      - TELEGRAM_API_ID=your_api_id
+      - TELEGRAM_API_HASH=your_api_hash
+    volumes:
+      - telegram_data:/var/lib/telegram-bot-api
+    ports:
+      - "8081:8081"
+
+  mongo:
+    image: mongo:latest
+    container_name: stream_mongo
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+volumes:
+  mongo_data:
+  telegram_data:
