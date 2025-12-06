@@ -80,7 +80,8 @@ class Publisher:
                 data = {
                     'chat_id': channel_id,
                     'caption': caption,
-                    'parse_mode': 'HTML'
+                    'parse_mode': 'HTML',
+                    'supports_streaming': True
                 }
                 response = requests.post(url, files=files, data=data)
                 
