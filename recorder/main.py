@@ -39,6 +39,23 @@ class StreamRecorder:
             'ignoreerrors': True,
         }
         
+        # Поддержка cookies.txt для yt-dlp
+        cookies_file = self.settings.get('cookies_file')
+        if cookies_file:
+            cookies_path = cookies_file
+            # Если путь относительный, добавляем префикс /app или текущий путь
+            if not os.path.isabs(cookies_path):
+                if sys.platform == 'win32':
+                    cookies_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', cookies_file)
+                else:
+                    cookies_path = f'/app/{cookies_file}'
+            
+            if os.path.exists(cookies_path):
+                ydl_opts['cookiefile'] = cookies_path
+                logger.info(f"Используется файл cookies: {cookies_path}")
+            else:
+                logger.warning(f"Файл cookies не найден: {cookies_path}")
+        
         # Если это YouTube канал, попробуем найти live
         if 'youtube.com' in channel_url or 'youtu.be' in channel_url:
             if '/watch' not in channel_url and '/live' not in channel_url:

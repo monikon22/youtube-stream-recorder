@@ -12,7 +12,8 @@
     "segment_size": "2G",
     "watermark_path": "/app/watermark.png",
     "watermark_position": "bottom-right",
-    "output_path": "/app/recordings"
+    "output_path": "/app/recordings",
+    "cookies_file": "cookies.txt"
   },
   "telegram": {
     "bot_token": "YOUR_BOT_TOKEN",
