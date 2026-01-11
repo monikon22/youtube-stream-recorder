@@ -37,6 +37,7 @@ class StreamRecorder:
             'quiet': True,
             'no_warnings': True,
             'ignoreerrors': True,
+            'extractor_args': {'youtubetab': ['skip=authcheck']}
         }
         
         # Поддержка cookies.txt для yt-dlp
