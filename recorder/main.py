@@ -36,8 +36,7 @@ class StreamRecorder:
         ydl_opts = {
             'quiet': True,
             'no_warnings': True,
-            'ignoreerrors': True,
-            'extractor_args': {'youtubetab': {'skip': ['authcheck']}},
+            'ignoreerrors': True
         }
         
         # Поддержка cookies.txt для yt-dlp
